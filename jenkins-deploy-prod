@@ -20,6 +20,8 @@ pipeline {
           steps { 
 
               script { 
+
+		  kubernetesDeploy configs: 'k8s-deploy/namespace.yaml', kubeconfigId: 'kubeconfig'
                   
                   kubernetesDeploy configs: 'k8s-deploy/*.yaml', dockerCredentials: [[credentialsId: 'dockerhub-creds', url: 'https://index.docker.io/v1/']], kubeConfig: [path: ''], kubeconfigId: 'kubeconfig', secretName: 'dockerhub-creds', secretNamespace: 'hello-webapp', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
 
