@@ -1,0 +1,47 @@
+pipeline { 
+
+  environment { 
+
+      registry = "asendzhingarov/hello-webapp" 
+
+      registryCredential = 'dockerhub-creds' 
+
+      dockerImage = '' 
+
+  }
+
+  agent any 
+
+  stages { 
+
+      stage('Clone from GitHub') { 
+
+          steps { 
+
+              git branch: 'main', url: 'https://github.com/AsenDzhingarov/hello-webapp.git'
+
+          }
+
+      } 
+
+
+      stage('Deploy the imagei to registry') { 
+
+          steps { 
+
+              script { 
+                  
+                  kubernetesDeploy configs: 'k8s-deploy/*.yaml', dockerCredentials: [[credentialsId: 'dockerhub-creds', url: 'https://index.docker.io/v1/']], kubeConfig: [path: ''], kubeconfigId: 'kubeconfig', secretName: 'dockerhub-creds', secretNamespace: 'hello-webapp', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+
+
+                  }
+
+              } 
+
+          }
+
+      } 
+
+  }
+
+}
