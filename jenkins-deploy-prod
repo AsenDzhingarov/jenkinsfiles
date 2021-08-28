@@ -1,15 +1,5 @@
 pipeline { 
 
-  environment { 
-
-      registry = "asendzhingarov/hello-webapp" 
-
-      registryCredential = 'dockerhub-creds' 
-
-      dockerImage = '' 
-
-  }
-
   agent any 
 
   stages { 
@@ -25,7 +15,7 @@ pipeline {
       } 
 
 
-      stage('Deploy the imagei to registry') { 
+      stage('Deploy the app to prod k8s cluster ') { 
 
           steps { 
 
@@ -43,5 +33,3 @@ pipeline {
       } 
 
   }
-
-}
