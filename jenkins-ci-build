@@ -1,6 +1,6 @@
 pipeline { 
   agent any
-   {
+  parameters {
       string(name: 'DEV_NAMESPACE', defaultValue: 'my-dev-ns', description: 'DEV namespace to deploy')
   }
   environment { 
