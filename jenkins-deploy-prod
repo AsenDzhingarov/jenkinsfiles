@@ -6,7 +6,7 @@ pipeline {
   }
   environment {
       appImage = "asendzhingarov/hello-webapp"
-      prod_ns = ${PROD_NAMESPACE}
+      prod_ns = "${PROD_NAMESPACE}"
   }
   stages { 
 
