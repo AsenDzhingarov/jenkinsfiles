@@ -4,7 +4,7 @@ pipeline {
       string(name: 'DEV_NAMESPACE', defaultValue: 'my-dev-ns', description: 'DEV namespace to deploy')
   }
   environment { 
-      dockerImage = "asendzhingarov/hello-webapp:1." + "$BUILD_NUMBER"
+      appImage = "asendzhingarov/hello-webapp:1." + "$BUILD_NUMBER"
       registryCredential = 'dockerhub-creds' 
   }
   stages { 
@@ -18,7 +18,7 @@ pipeline {
       stage('Build Docker image') { 
           steps { 
               script { 
-                  dockerImage = docker.build dockerImage
+                  dockerImage = docker.build appImage
               }
           } 
       }
@@ -36,7 +36,7 @@ pipeline {
       stage('Deploy the DEV') {
           steps {
               script {
-                  sh "ansible-playbook ansible/deploy.yaml -e image_id=${dockerImage} -e ns_name=${DEV_NAMESPACE}"
+                  sh "ansible-playbook ansible/deploy.yaml -e image_id=${appImage} -e ns_name=${DEV_NAMESPACE}"
               }
           }
       }
