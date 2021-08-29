@@ -19,7 +19,7 @@ pipeline {
           steps { 
               script { 
 		  kubernetesDeploy configs: 'deploy/prod/namespace.yaml', kubeconfigId: 'kubeconfig'
-                  kubernetesDeploy configs: 'deploy/prod/*.yaml', dockerCredentials: [[credentialsId: 'dockerhub-creds', url: 'https://index.docker.io/v1/']], kubeconfigId: 'kubeconfig', secretName: 'dockerhub-creds', secretNamespace: '${PROD_NAMESPACE}'
+                  kubernetesDeploy configs: 'deploy/prod/*.yaml', dockerCredentials: [[credentialsId: 'dockerhub-creds', url: 'https://index.docker.io/v1/']], kubeconfigId: 'kubeconfig', secretName: 'dockerhub-creds', secretNamespace: 'hello-webapp-prod'
                   }
               } 
           }
