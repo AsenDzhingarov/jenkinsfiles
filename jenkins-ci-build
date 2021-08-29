@@ -6,7 +6,7 @@ pipeline {
   environment { 
       appImage = "asendzhingarov/hello-webapp"
       imageTag = "1.$BUILD_NUMBER"
-      imageTag_dev = ${imageTag} + "-dev"
+      imageTag_dev = imageTag + "-dev"
       registryCredential = 'dockerhub-creds' 
   }
   stages { 
