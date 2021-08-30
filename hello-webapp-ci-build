@@ -39,7 +39,7 @@ pipeline {
           steps {
               script {
                   def image_id = appImage + ":" + imageTag_dev
-                  sh "ansible-playbook ansible/deploy.yaml -e image_id=${image_id} -e ns_name=${DEV_NAMESPACE}"
+                  sh "ansible-playbook deploy/dev/ansible/deploy.yaml -e image_id=${image_id} -e ns_name=${DEV_NAMESPACE}"
               }
           }
       }
@@ -47,7 +47,7 @@ pipeline {
       stage('Testng in DEV') {
           steps {
               script {
-                  sh "ansible-playbook ansible/testing.yaml -e ns_name=${DEV_NAMESPACE}"
+                  sh "ansible-playbook tests/http_check.yaml -e ns_name=${DEV_NAMESPACE}"
               }
           }
       }
