@@ -1,7 +1,7 @@
 pipeline { 
   agent any
   parameters {
-      string(name: 'DEV_NAMESPACE', defaultValue: 'my-dev-ns', description: 'DEV namespace to deploy')
+      string(name: 'DEV_NAMESPACE', defaultValue: 'hello-webapp-dev', description: 'DEV namespace to deploy')
   }
   environment { 
       appImage = "asendzhingarov/hello-webapp"
@@ -44,7 +44,7 @@ pipeline {
           }
       }
 
-      stage('Testing') {
+      stage('Testng in DEV') {
           steps {
               script {
                   sh "ansible-playbook ansible/testing.yaml -e ns_name=${DEV_NAMESPACE}"
@@ -52,7 +52,7 @@ pipeline {
           }
       }
 
-      stage('Tag the image for Production') {
+      stage('Tag the image for Production use') {
           steps {
               script {
                   docker.withRegistry( '', registryCredential ) {
