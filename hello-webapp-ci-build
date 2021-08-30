@@ -1,9 +1,7 @@
 pipeline { 
   agent any
-  parameters {
-      string(name: 'DEV_NAMESPACE', defaultValue: 'hello-webapp-dev', description: 'DEV namespace to deploy')
-  }
   environment { 
+      DEV_NAMESPACE = "hello-webapp-dev"
       appImage = "asendzhingarov/hello-webapp"
       imageTag = "1.$BUILD_NUMBER"
       imageTag_dev = "$imageTag-dev"
